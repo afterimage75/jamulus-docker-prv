@@ -29,6 +29,6 @@ RUN echo "*** clean up build environment ***"; \
 RUN echo "*** prepare run environment ***"; \
    apt-get -y install --no-install-recommends tzdata procps libqt5core5a libqt5network5 libqt5xml5
 
-CMD ["/usr/bin/nice","-n","-20","/usr/bin/ionice","-c","1","/usr/local/bin/Jamulus","-d -e 127.0.0.1 -F -n -o '├ DaGarage Online ┤;Asbury Park, NJ;us' -P -R /Jamulus/Recordings/Private -s -T -u 14 -w /Jamulus/Web/motd-jamulus-private.htm -Q 46 -p 22125"]
-
 ENTRYPOINT ["Jamulus"]
+
+CMD ["--version" "-d" "-e" "127.0.0.1" "-F" "-n" "-o" "├ DaGarage Online ┤;Asbury Park, NJ;us" "-P" "-R" "/Jamulus/Recordings/Private" "-s" "-T" "-u" "14" "-w" "/Jamulus/Web/motd-jamulus-private.htm" "-Q" "46" "-p" "22125"]
