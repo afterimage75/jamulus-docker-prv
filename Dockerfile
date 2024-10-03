@@ -31,4 +31,4 @@ RUN echo "*** prepare run environment ***"; \
 
 ENTRYPOINT ["nice", "-n", "-20", "ionice", "-c", "1", "Jamulus"]
 
-CMD ["-d", "-e", "127.0.0.1", "-F", "-n", "-o", "├ DaGarage Online ┤;Asbury Park, NJ;us", "-P", "-R", "/Jamulus/Recordings/Private", "-s", "-T", "-u", "14", "-w", "/Jamulus/Web/motd-jamulus-private.htm", "-Q", "46", "-p", "22125""]
+CMD ["-d", "-e", "127.0.0.1", "-F", "-n", "-o", "├ DaGarage Online ┤;Asbury Park, NJ;us", "-P", "-R", "/Jamulus/Recordings/Private", "-s", "-T", "-u", "14", "-w", "/Jamulus/Web/motd-jamulus-private.htm", "-Q", "46", "-p", "22125"]
