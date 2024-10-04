@@ -2,7 +2,6 @@ FROM debian:stable-slim
 
 ENV SERVER_NAME="DaGarage Jamulus Server - Private"
 ENV TZ=America/New_York
-ENV MAX_CLIENTS=12
 
 # Update system packages
 RUN echo "*** updating system packages ***"; \
@@ -34,15 +33,6 @@ RUN echo "*** clean up build environment ***"; \
 # Prepare the runtime environment
 RUN echo "*** prepare run environment ***"; \
     apt-get -y install --no-install-recommends tzdata procps libqt5core5a libqt5network5 libqt5xml5
-
-# Set CPU to performance mode
-RUN cpufreq-set -g performance
-
-# Configure network optimizations
-RUN sysctl -w net.core.rmem_max=26214400 && \
-    sysctl -w net.core.wmem_max=26214400 && \
-    sysctl -w net.ipv4.udp_mem='8388608 12582912 16777216' && \
-    sysctl -w net.ipv4.tcp_nodelay=1
 
 # Expose the default Jamulus server port
 EXPOSE 22125/udp
