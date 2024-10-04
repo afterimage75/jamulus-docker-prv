@@ -13,7 +13,7 @@ RUN echo "*** fetch jamulus source ***"; \
     tar xzf latest.tar.gz    
 
 # Adjust the working directory using wildcard
-WORKDIR /tmp/jamulus-*
+WORKDIR /tmp/jamulus
 RUN echo "*** compile jamulus ***"; \
     qmake "CONFIG+=nosound headless serveronly" Jamulus.pro && \
     make clean && \
