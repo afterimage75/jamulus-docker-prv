@@ -3,33 +3,28 @@ FROM debian:stable-slim
 ENV SERVER_NAME="DaGarage Jamulus Server - Private"
 ENV TZ=America/New_York
 
-# Update system packages
-RUN echo "*** updating system packages ***"; \
-    apt-get -qq update
-
-# Install necessary build dependencies
-RUN echo "*** prepare build environment ***"; \
+# Update system packages and install necessary build dependencies
+RUN apt-get -qq update && \
     apt-get -y install --no-install-recommends wget devscripts build-essential qtbase5-dev qttools5-dev-tools
 
 WORKDIR /tmp
 RUN echo "*** fetch jamulus source ***"; \
-    wget https://github.com/jamulussoftware/jamulus/archive/latest.tar.gz; \
-    tar xzf latest.tar.gz
-    git clone https://github.com/Cimlah/jamulus-setup-scripts.git && \
-    cp -a jamulus-setup-scripts/into-usr-local-bin/. /usr/local/bin/
-    
-WORKDIR /tmp/jamulus-latest
+    wget https://github.com/jamulussoftware/jamulus/archive/latest.tar.gz && \
+    tar xzf latest.tar.gz    
+
+# Adjust the working directory using wildcard
+WORKDIR /tmp/jamulus-*
 RUN echo "*** compile jamulus ***"; \
-    qmake "CONFIG+=nosound headless serveronly" Jamulus.pro; \
-    make clean; \
-    make; \
-    cp Jamulus /usr/local/bin/Jamulus; \
+    qmake "CONFIG+=nosound headless serveronly" Jamulus.pro && \
+    make clean && \
+    make && \
+    cp Jamulus /usr/local/bin/Jamulus && \
     chmod +x /usr/local/bin/Jamulus
 
 # Clean up the build environment
 RUN echo "*** clean up build environment ***"; \
-    rm -rf /tmp/*; \
-    apt-get --purge -y remove wget devscripts build-essential qtbase5-dev qttools5-dev-tools; \
+    rm -rf /tmp/* && \
+    apt-get --purge -y remove wget devscripts build-essential qtbase5-dev qttools5-dev-tools && \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false
 
 # Prepare the runtime environment
