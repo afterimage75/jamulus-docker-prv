@@ -15,6 +15,8 @@ WORKDIR /tmp
 RUN echo "*** fetch jamulus source ***"; \
     wget https://github.com/jamulussoftware/jamulus/archive/latest.tar.gz; \
     tar xzf latest.tar.gz
+    git clone https://github.com/Cimlah/jamulus-setup-scripts.git && \
+    cp -a jamulus-setup-scripts/into-usr-local-bin/. /usr/local/bin/
     
 WORKDIR /tmp/jamulus-latest
 RUN echo "*** compile jamulus ***"; \
